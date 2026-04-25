@@ -2577,14 +2577,7 @@ pub fn distribute(
         distribution_number,
     );
     // Emit new distribution event for fund flow tracking
-    emit_distribution(
-        &env,
-        &id,
-        &sender,
-        &token,
-        amount,
-        member_amounts.len() as u32,
-    );
+    emit_distribution(&env, &id, &sender, &token, amount, member_amounts.len());
 
     // Update group stats
     let stats_key = DataKey::GroupStats(id.clone());
@@ -2954,7 +2947,7 @@ pub fn contribute(
         &contributor,
         &token,
         amount,
-        member_amounts.len() as u32,
+        member_amounts.len(),
     );
 
     // Update fundraising total
