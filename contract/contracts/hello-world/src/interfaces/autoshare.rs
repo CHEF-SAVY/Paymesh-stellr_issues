@@ -119,12 +119,8 @@ pub trait AutoShareTrait {
     fn get_group_members(env: Env, id: BytesN<32>) -> Vec<GroupMember>;
 
     /// Returns a paginated list of all current members in a specific group.
-    fn get_group_members_paginated(
-        env: Env,
-        id: BytesN<32>,
-        offset: u32,
-        limit: u32,
-    ) -> MemberPage;
+    fn get_group_members_paginated(env: Env, id: BytesN<32>, offset: u32, limit: u32)
+        -> MemberPage;
 
     /// Returns a specific member's share (percentage) in a group.
     fn get_member_percentage(env: Env, id: BytesN<32>, member: Address) -> u32;

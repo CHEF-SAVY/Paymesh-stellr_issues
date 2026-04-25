@@ -488,7 +488,12 @@ pub struct GroupMembersQueried {
     pub query_count: u64,
 }
 
-pub fn emit_group_members_queried(env: &Env, group_id: BytesN<32>, member_count: u32, query_count: u64) {
+pub fn emit_group_members_queried(
+    env: &Env,
+    group_id: BytesN<32>,
+    member_count: u32,
+    query_count: u64,
+) {
     GroupMembersQueried {
         group_id,
         member_count,

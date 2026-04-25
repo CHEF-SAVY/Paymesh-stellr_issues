@@ -534,7 +534,7 @@ pub fn is_group_member(env: Env, id: BytesN<32>, address: Address) -> Result<boo
 /// * `id` - The unique 32-byte identifier of the AutoShare group.
 ///
 /// ### Returns
-/// * `Result<Vec<GroupMember>, Error>` - A vector containing all group members and their percentages, 
+/// * `Result<Vec<GroupMember>, Error>` - A vector containing all group members and their percentages,
 ///   or an error if the group is not found.
 ///
 /// ### Panics
@@ -547,11 +547,7 @@ pub fn get_group_members(env: Env, id: BytesN<32>) -> Result<Vec<GroupMember>, E
     // Increment the per-group invocation counter and emit a diagnostic event so
     // off-chain indexers can track read frequency without any additional RPC calls.
     let counter_key = DataKey::GroupMembersQueryCount(id.clone());
-    let prev_count: u64 = env
-        .storage()
-        .persistent()
-        .get(&counter_key)
-        .unwrap_or(0u64);
+    let prev_count: u64 = env.storage().persistent().get(&counter_key).unwrap_or(0u64);
     let new_count = prev_count + 1;
     env.storage().persistent().set(&counter_key, &new_count);
     bump_persistent(&env, &counter_key);
@@ -627,7 +623,8 @@ pub fn get_group_members_paginated(
     })
 }
 
-pub fn get_member_percentage(env: Env, id: BytesN<32>, member: Address) -> Result<u32, Error> {    let details = get_autoshare(env, id)?;
+pub fn get_member_percentage(env: Env, id: BytesN<32>, member: Address) -> Result<u32, Error> {
+    let details = get_autoshare(env, id)?;
     for m in details.members.iter() {
         if m.address == member {
             return Ok(m.percentage);
@@ -2212,7 +2209,7 @@ pub fn update_group_name(
 
 /// Updates the configurable settings of an existing payment group.
 ///
-/// This function allows the group creator to update the group name, metadata, and 
+/// This function allows the group creator to update the group name, metadata, and
 /// transfer ownership (admin rotation) in a single transaction. Only the current
 /// creator is authorized to perform these updates.
 ///
@@ -3580,7 +3577,12 @@ pub fn get_protocol_fee(env: Env) -> (u32, Address) {
     (fee, recipient)
 }
 
-pub fn set_protocol_fee(env: Env, fee: u32, recipient: Address, admin: Address) -> Result<(), Error> {
+pub fn set_protocol_fee(
+    env: Env,
+    fee: u32,
+    recipient: Address,
+    admin: Address,
+) -> Result<(), Error> {
     admin.require_auth();
     require_admin(&env, &admin)?;
 
@@ -3731,7 +3733,9 @@ pub fn deposit_funds(
         .get(&group_history_key)
         .unwrap_or_else(|| Vec::new(&env));
     group_history.push_back(deposit_record.clone());
-    env.storage().persistent().set(&group_history_key, &group_history);
+    env.storage()
+        .persistent()
+        .set(&group_history_key, &group_history);
     bump_persistent(&env, &group_history_key);
 
     // Record in depositor history

@@ -48,7 +48,13 @@ fn test_update_payment_group_metadata_success() {
     );
 
     let new_metadata = String::from_str(&test_env.env, "New Metadata Content");
-    client.update_payment_group(&group_id, &creator, &None, &Some(new_metadata.clone()), &None);
+    client.update_payment_group(
+        &group_id,
+        &creator,
+        &None,
+        &Some(new_metadata.clone()),
+        &None,
+    );
 
     let details = client.get(&group_id);
     assert_eq!(details.metadata, new_metadata);
@@ -73,7 +79,13 @@ fn test_update_payment_group_admin_rotation_success() {
         &token,
     );
 
-    client.update_payment_group(&group_id, &creator, &None, &None, &Some(new_creator.clone()));
+    client.update_payment_group(
+        &group_id,
+        &creator,
+        &None,
+        &None,
+        &Some(new_creator.clone()),
+    );
 
     let details = client.get(&group_id);
     assert_eq!(details.creator, new_creator);

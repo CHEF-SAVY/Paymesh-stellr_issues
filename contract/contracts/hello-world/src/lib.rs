@@ -392,12 +392,12 @@ impl AutoShareContract {
 
     /// Updates the settings of an existing payment group (name, metadata, and creator).
     ///
-    /// This is a consolidated update method that allows the group creator to 
+    /// This is a consolidated update method that allows the group creator to
     /// modify multiple settings or transfer ownership in a single transaction.
     ///
     /// # Panics
     ///
-    /// Panics if the caller is not the creator, if the contract is paused, 
+    /// Panics if the caller is not the creator, if the contract is paused,
     /// or if the group is inactive.
     pub fn update_payment_group(
         env: Env,
@@ -942,7 +942,13 @@ impl AutoShareContract {
     /// # Panics
     ///
     /// Panics if validation fails or token transfer fails.
-    pub fn deposit_funds(env: Env, id: BytesN<32>, token: Address, amount: i128, depositor: Address) {
+    pub fn deposit_funds(
+        env: Env,
+        id: BytesN<32>,
+        token: Address,
+        amount: i128,
+        depositor: Address,
+    ) {
         autoshare_logic::deposit_funds(env, id, token, amount, depositor).unwrap();
     }
 

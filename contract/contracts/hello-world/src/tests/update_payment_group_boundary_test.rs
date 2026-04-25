@@ -22,7 +22,7 @@ fn test_update_payment_group_when_paused_fails() {
     );
 
     client.pause(&test_env.admin);
-    
+
     let new_name = String::from_str(&test_env.env, "New Name");
     client.update_payment_group(&group_id, &creator, &Some(new_name), &None, &None);
 }
@@ -45,7 +45,7 @@ fn test_update_payment_group_inactive_fails() {
     );
 
     client.deactivate_payment_group(&group_id, &creator);
-    
+
     let new_name = String::from_str(&test_env.env, "New Name");
     client.update_payment_group(&group_id, &creator, &Some(new_name), &None, &None);
 }
@@ -114,7 +114,13 @@ fn test_update_payment_group_metadata_large_size_success() {
 
     // Large metadata (e.g., 2KB)
     let large_metadata = String::from_str(&test_env.env, "M".repeat(2048).as_str());
-    client.update_payment_group(&group_id, &creator, &None, &Some(large_metadata.clone()), &None);
+    client.update_payment_group(
+        &group_id,
+        &creator,
+        &None,
+        &Some(large_metadata.clone()),
+        &None,
+    );
 
     let details = client.get(&group_id);
     assert_eq!(details.metadata, large_metadata);
@@ -137,12 +143,12 @@ fn test_update_payment_group_no_changes_success() {
     );
 
     let before = client.get(&group_id);
-    
+
     // Call with all None
     client.update_payment_group(&group_id, &creator, &None, &None, &None);
 
     let after = client.get(&group_id);
-    
+
     assert_eq!(before.name, after.name);
     assert_eq!(before.metadata, after.metadata);
     assert_eq!(before.creator, after.creator);
