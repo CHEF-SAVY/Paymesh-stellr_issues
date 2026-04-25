@@ -1,4 +1,3 @@
-#![cfg(test)]
 #![allow(unused_imports)]
 
 use crate::test_utils::{deploy_autoshare_contract, deploy_mock_token, mint_tokens};

@@ -1,5 +1,3 @@
-#![cfg(test)]
-
 use crate::base::types::GroupMember;
 use crate::test_utils::{
     create_test_members, deploy_autoshare_contract, deploy_mock_token, mint_tokens,
@@ -89,7 +87,7 @@ fn test_get_group_members_after_deactivation() {
     client.update_members(&id, &creator, &members);
 
     client.deactivate_group(&id, &creator);
-    assert_eq!(client.is_group_active(&id), false);
+    assert!(!client.is_group_active(&id));
 
     // Members should still be fetchable
     let result = client.get_group_members(&id);

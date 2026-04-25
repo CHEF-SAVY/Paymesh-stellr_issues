@@ -1,8 +1,6 @@
-#![cfg(test)]
-
 use crate::test_utils::{create_test_group, create_test_members, setup_test_env};
 use crate::AutoShareContractClient;
-use soroban_sdk::{testutils::Address as _, Address, String};
+use soroban_sdk::String;
 
 #[test]
 fn test_update_payment_group_name_success() {
